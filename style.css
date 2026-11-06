@@ -1,0 +1,612 @@
+/* ===== GLOBAL RESET ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #00f5ff;
+    --secondary: #7b2ff7;
+    --dark: #0f172a;
+    --glass: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.15);
+    --text-light: rgba(255,255,255,0.75);
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #fff;
+    min-height: 100vh;
+    padding: 30px;
+    overflow-x: hidden;
+}
+
+/* ===== Animated Background Glow ===== */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -1;
+}
+
+body::before {
+    top: -200px;
+    left: -200px;
+    background: radial-gradient(circle, rgb(0, 0, 0), transparent 50%);
+    animation: floatGlow 12s infinite alternate ease-in-out;
+}
+
+body::after {
+    bottom: -200px;
+    right: -200px;
+    background: radial-gradient(circle, rgb(0, 0, 0), transparent 60%);
+    animation: floatGlow 14s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes floatGlow {
+    from { transform: translateY(0px) scale(1); }
+    to { transform: translateY(60px) scale(1.1); }
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ===== HEADER ===== */
+
+h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== GLASS CARD ===== */
+
+.card {
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 22px;
+    padding: 28px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.05),
+        transparent
+    );
+    transform: rotate(25deg);
+    transition: 0.7s;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 20px 50px rgba(0,0,0,0.7),
+        0 0 25px rgba(0,245,255,0.3);
+}
+
+/* ===== INPUTS ===== */
+
+input {
+    padding: 12px 14px;
+    margin: 8px 6px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    width: 200px;
+    transition: 0.3s;
+}
+select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #00d4ff;
+    background-color: #1e2a38;
+    color: white;
+    cursor: pointer;
+}
+
+select option {
+    background-color: white;
+    color: black;
+}
+
+input::placeholder {
+    color: var(--text-light);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* ===== BUTTON ===== */
+
+button {
+    padding: 13px 20px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,245,255,0.6);
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(123,47,247,0.8);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* ===== ANALYTICS GRID ===== */
+
+.analytics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+/* ===== STATS ===== */
+
+.stat {
+    padding: 22px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.stat::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.stat:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px rgba(0,245,255,0.4);
+}
+
+.stat h4 {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.stat p {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* ===== CHART SECTION ===== */
+
+.charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+canvas {
+    max-height: 320px;
+    padding: 10px;
+}
+
+/* ===== EXPENSE LIST ===== */
+
+#expenseList {
+    list-style: none;
+}
+
+#expenseList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    transition: 0.3s;
+    animation: fadeSlide 0.4s ease forwards;
+}
+
+#expenseList li:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateX(8px);
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== CATEGORY ACCENT ===== */
+
+.food { border-left: 4px solid #ff9800; }
+.travel { border-left: 4px solid #00f5ff; }
+.bills { border-left: 4px solid #ff4b2b; }
+.shopping { border-left: 4px solid #c084fc; }
+.other { border-left: 4px solid #4ade80; }
+
+/* ===== BUDGET ALERT ===== */
+
+#budgetAlert {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #ff4b2b;
+    text-shadow: 0 0 10px rgba(255,75,43,0.6);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width: 768px) {
+
+    .charts {
+        grid-template-columns: 1fr;
+    }
+
+    input, select {
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    body {
+        padding: 20px;
+    }
+}
+/* ===== MATRIX FOOTER ===== */
+
+.matrix-footer {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.matrix-terminal {
+    display: inline-block;
+    background: #000;
+    padding: 18px 28px;
+    border-radius: 12px;
+    border: 1px solid #0c0876;
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    color: #0dea1c;
+    box-shadow: 0 0 20px rgba(204, 48, 239, 0.3);
+    letter-spacing: 1px;
+}
+
+.prefix {
+    color: #00ff00;
+    margin-right: 6px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    animation: blink 1s infinite;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
+/* Subtle glow flicker */
+.matrix-terminal {
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { box-shadow: 0 0 10px rgba(0,255,0,0.2); }
+    100% { box-shadow: 0 0 25px rgba(0,255,0,0.5); }
+}
+#themeBtn {
+    padding:8px 12px;
+    border-radius:50%;
+    font-size:16px;
+}
+
+.light-mode {
+    background:#f4f4f4;
+    color:black;
+}
+
+.light-mode .card {
+    background:white;
+    color:black;
+}
+/* Settings Buttons */
+.settings-card {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#00c6ff,#7f5af0);
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.custom-file-upload input {
+    display: none;
+}
+
+.custom-file-upload:hover {
+    transform: scale(1.05);
+}
+.goal-card {
+    margin-top: 20px;
+}
+
+.goal-input-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.goal-input-row input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.goal-input-row button {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg,#00c6ff,#7f5af0);
+    color: white;
+    cursor: pointer;
+}
+
+.goal-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.goal-bar {
+    height: 10px;
+    background: #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#goalBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#00ffcc,#00c6ff);
+    transition: width 0.4s ease;
+}
+.history-card {
+    margin-top: 20px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.history-header button {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg,#ff6a00,#ee0979);
+    color: white;
+    cursor: pointer;
+}
+
+#expenseList li {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+}
+/* ===== LIGHT MODE FULL FIX ===== */
+
+body.light-mode {
+    background: #f4f6f9;
+    color: #111;
+}
+
+/* Cards */
+body.light-mode .card {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    color: #111;
+}
+
+/* Stats Boxes */
+body.light-mode .stat {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+body.light-mode .stat h4 {
+    color: #555;
+}
+
+body.light-mode .stat p {
+    color: #111;
+}
+
+/* Inputs */
+body.light-mode input {
+    background: #ffffff;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+body.light-mode input::placeholder {
+    color: #888;
+}
+
+/* Select */
+body.light-mode select {
+    background: #ffffff;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+/* Expense List */
+body.light-mode #expenseList li {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+body.light-mode #expenseList li:hover {
+    background: #f0f0f0;
+}
+
+/* Goal Bar Background */
+body.light-mode .goal-bar {
+    background: #e0e0e0;
+}
+
+/* Matrix Footer */
+body.light-mode .matrix-terminal {
+    background: #111;
+    color: #00ff00;
+}
+
+/* Remove neon hover glow in light mode */
+body.light-mode .card:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+/* Make Import button look like normal gradient button */
+
+.import-btn {
+    display: inline-block;
+    padding: 13px 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,245,255,0.6);
+}
+
+.import-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(123,47,247,0.8);
+}
+
+.import-btn input {
+    display: none;
+}
+/* ===== MATRIX FOOTER ===== */
+
+.matrix-footer {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.matrix-terminal {
+    display: inline-block;
+    background: #000;
+    padding: 18px 28px;
+    border-radius: 12px;
+    border: 1px solid #0c0876;
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    color: #0dea1c;
+    box-shadow: 0 0 20px rgba(204, 48, 239, 0.3);
+    letter-spacing: 1px;
+}
+
+.prefix {
+    color: #00ff00;
+    margin-right: 6px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    animation: blink 1s infinite;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
+/* Subtle glow flicker */
+.matrix-terminal {
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { box-shadow: 0 0 10px rgba(0,255,0,0.2); }
+    100% { box-shadow: 0 0 25px rgba(0,255,0,0.5); }
+}

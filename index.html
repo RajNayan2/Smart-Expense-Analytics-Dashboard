@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Finance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Smart Finance Dashboard</h1>
+
+<!-- TOP RIGHT BUTTONS -->
+<div style="position:fixed; top:20px; right:20px; z-index:1000; display:flex; gap:10px;">
+    <button id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button onclick="resetAllData()">Reset</button>
+</div>
+
+<!-- TABS -->
+<div class="card">
+    <button onclick="showTab('expenseTab')">Expense</button>
+    <button onclick="showTab('incomeTab')">Income</button>
+    <button onclick="showTab('lendingTab')">Lending</button>
+</div>
+
+<!-- EXPENSE TAB -->
+<div id="expenseTab" class="card tab">
+    <h3>Add Expense</h3>
+    <input type="number" id="amount" placeholder="Amount">
+    <select id="category">
+        <option>Food</option>
+        <option>Travel</option>
+        <option>Bills</option>
+        <option>Shopping</option>
+        <option>Other</option>
+    </select>
+    <input type="date" id="date">
+    <input type="text" id="description" placeholder="Description">
+    <button onclick="addExpense()">Add Expense</button>
+</div>
+
+<!-- INCOME TAB -->
+<div id="incomeTab" class="card tab" style="display:none;">
+    <h3>Add Income</h3>
+    <input type="number" id="incomeAmount" placeholder="Income Amount">
+    <button onclick="addIncome()">Add Income</button>
+</div>
+
+<!-- LENDING TAB -->
+<div id="lendingTab" class="card tab" style="display:none;">
+    <h3>Money Given</h3>
+    <input type="text" id="lendName" placeholder="Person Name">
+    <input type="number" id="lendAmount" placeholder="Amount">
+    <button onclick="addLend()">Add</button>
+</div>
+
+<!-- ANALYTICS -->
+<div class="card analytics">
+    <div class="stat">
+        <h4>Total Expense</h4>
+        <p id="total">₹0</p>
+    </div>
+    <div class="stat">
+        <h4>Total Income</h4>
+        <p id="incomeTotal">₹0</p>
+    </div>
+    <div class="stat">
+        <h4>Profit / Loss</h4>
+        <p id="profitLoss">₹0</p>
+    </div>
+    <div class="stat">
+        <h4>Remaining This Month</h4>
+        <p id="remainingMonth">₹0</p>
+    </div>
+</div>
+
+<!-- MONTH SUMMARY -->
+<div class="card analytics">
+    <div class="stat">
+        <h4>Earned This Month</h4>
+        <p id="earnedMonth">₹0</p>
+    </div>
+    <div class="stat">
+        <h4>Spent This Month</h4>
+        <p id="spentMonth">₹0</p>
+    </div>
+    <div class="stat">
+        <h4>Money Left</h4>
+        <p id="leftMonth">₹0</p>
+    </div>
+    <div class="stat">
+        <h4>Total Spent This Year</h4>
+        <p id="spentYear">₹0</p>
+    </div>
+</div>
+
+<!-- CHARTS -->
+<div class="charts">
+    <div class="card">
+        <h4>Category Distribution</h4>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h4>Monthly Distribution</h4>
+        <canvas id="monthPieChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h4>Monthly Trend</h4>
+        <canvas id="barChart"></canvas>
+    </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="card">
+    <h3>Settings</h3>
+    <button onclick="exportPDF()">Export PDF</button>
+    <button onclick="backupData()">Backup Data</button>
+  <label class="import-btn">
+    📂 Import Backup
+    <input type="file" accept=".json" onchange="restoreData(event)">
+</label>
+
+</div>
+
+<!-- GOAL -->
+<div class="card">
+    <h3>Savings Goal</h3>
+    <input type="number" id="goalAmount" placeholder="Set Goal Amount">
+    <button onclick="setGoal()">Set Goal</button>
+
+    <p>Saved: ₹<span id="goalSaved">0</span></p>
+    <p>Target: ₹<span id="goalTarget">0</span></p>
+
+    <div style="background:#333; height:10px; border-radius:5px;">
+        <div id="goalBar" style="height:10px; width:0%; background:#00c6ff;"></div>
+    </div>
+</div>
+
+<!-- HISTORY -->
+<div class="card">
+    <div style="display:flex; justify-content:space-between;">
+        <h3>Transaction History</h3>
+        <button onclick="clearHistory()">Clear History</button>
+    </div>
+    <ul id="expenseList"></ul>
+</div>
+
+</div>
+<footer class="matrix-footer">
+    <div class="matrix-terminal">
+        <span class="prefix">root@project:~$</span>
+        <span id="typing-name"></span><span class="cursor">|</span>
+    </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
